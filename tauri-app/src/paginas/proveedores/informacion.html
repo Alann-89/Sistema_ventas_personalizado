@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, width=device-width">
+  <title>Información del Proveedor</title>
+
+  
+  <link rel="stylesheet" href="../../recursos/css/alertas.css">
+  <link rel="stylesheet" href="../../recursos/css/globales.css">
+  <link rel="stylesheet" href="../../recursos/css/agregar.css">
+  <link rel="stylesheet" href="../../recursos/css/informacion.css">
+  <link rel="stylesheet" href="../../recursos/css/listaProveedores.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
+</head>
+<body>
+  <div class="contenedor-todo">
+    <div class="fondo"></div>
+    
+    <!-- Navegación -->
+    <div class="navegacion">
+        <div class="boton-menu" id="resumenContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_resumen.svg">
+            <div class="texto-boton">Resumen</div>
+        </div>
+        <div class="boton-menu" id="clientesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_clientes.svg">
+            <div class="texto-boton">Clientes</div>
+        </div>
+        <div class="boton-menu activo" id="productosContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_productos.svg">
+            <div class="texto-boton">Productos</div>
+        </div>
+        <div class="boton-menu" id="ordenesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_ordenes.svg">
+            <div class="texto-boton">Pedidos</div>
+        </div>
+        <div class="boton-menu" id="provedoresContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_provedores.svg">
+            <div class="texto-boton">Proveedores</div>
+        </div>
+        <div class="boton-menu" id="rutasContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_rutas.svg">
+            <div class="texto-boton">Rutas</div>
+        </div>
+        <div class="boton-menu" id="reportesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_reportes.svg">
+            <div class="texto-boton">Reportes</div>
+        </div>
+        <div class="boton-menu" id="ajustesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_ajustes.svg">
+            <div class="texto-boton">Ajustes</div>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="contenedor-formulario" id="contenedor-formulario">
+        <div class="nombre-producto">
+            <button class="boton-atras">
+                <img class="icono-atras" alt="" src="../../recursos/iconos/icono_atras.svg">
+            </button>
+            <span id="titulo-cliente">Información del Cliente</span>
+        </div>
+        
+        <form id="formulario-cliente">
+            <div class="conetenedor-actualizar" id="contenedor-info">
+                <div class="estado-edicion" id="modo-edicion">Modo Edición</div>
+                
+                <div class="contenedor-imagen" id="imagen-preview-container">
+                    <img id="preview-img" class="imagen" alt="Vista previa" src="../../recursos/iconos/icono_provedores.svg">
+                </div>
+                
+                <div class="contenedor-informacion">
+                    <div class="informacion-producto">
+                        <div class="titulos">Nombre</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <input name="nombre" type="text" id="nombre" class="informacin-del-producto" disabled />
+                        </div>
+                    </div>
+                   <div class="informacion-producto">
+                        <div class="titulos">Teléfono</div>
+                        <div class="informacin-del-producto-wrapper" style="display: flex; gap: 8px;">
+                            <select id="prefijo" class="informacin-del-producto" style="width: 80px;" disabled>
+                                <option value="+52">+52 🇲🇽</option>
+                                <option value="+1">+1 🇺🇸</option>
+                                <option value="+54">+54 🇦🇷</option>
+                                <option value="+57">+57 🇨🇴</option>
+                            </select>
+                            <input name="telefono" type="tel" id="telefono" class="informacin-del-producto" placeholder="555 123 4567" maxlength="15" disabled />
+                        </div>
+                    </div>
+                    <div class="informacion-producto">
+                        <div class="titulos">Correo Electrónico</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <input name="correo" type="email" id="correo" class="informacin-del-producto" disabled />
+                        </div>
+                    </div>
+                    <div class="informacion-producto">
+                        <div class="titulos">Dirección Completa</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <input name="direccion_completa" type="text" id="direccion_completa" class="informacin-del-producto" placeholder="Calle Nombre #123, Ciudad" disabled />
+                        </div>
+                    </div>
+                    
+                    <div class="informacion-producto">
+                        <div class="titulos">Código Postal</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <input name="codigo_postal" type="text" id="codigo_postal" class="informacin-del-producto" placeholder="12345" maxlength="5" pattern="[0-9]{5}" disabled />
+                        </div>
+                    </div>
+                    
+                    <div class="informacion-producto">
+                        <div class="titulos">Estado</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <select name="estado" id="estado" class="informacin-del-producto" disabled>
+                                <option value="">Selecciona un estado</option>
+                                <option value="Aguascalientes">Aguascalientes</option>
+                                <option value="Baja California">Baja California</option>
+                                <option value="Baja California Sur">Baja California Sur</option>
+                                <option value="Campeche">Campeche</option>
+                                <option value="Chiapas">Chiapas</option>
+                                <option value="Chihuahua">Chihuahua</option>
+                                <option value="Ciudad de México">Ciudad de México</option>
+                                <option value="Coahuila">Coahuila</option>
+                                <option value="Colima">Colima</option>
+                                <option value="Durango">Durango</option>
+                                <option value="Estado de México">Estado de México</option>
+                                <option value="Guanajuato">Guanajuato</option>
+                                <option value="Guerrero">Guerrero</option>
+                                <option value="Hidalgo">Hidalgo</option>
+                                <option value="Jalisco">Jalisco</option>
+                                <option value="Michoacán">Michoacán</option>
+                                <option value="Morelos">Morelos</option>
+                                <option value="Nayarit">Nayarit</option>
+                                <option value="Nuevo León">Nuevo León</option>
+                                <option value="Oaxaca">Oaxaca</option>
+                                <option value="Puebla">Puebla</option>
+                                <option value="Querétaro">Querétaro</option>
+                                <option value="Quintana Roo">Quintana Roo</option>
+                                <option value="San Luis Potosí">San Luis Potosí</option>
+                                <option value="Sinaloa">Sinaloa</option>
+                                <option value="Sonora">Sonora</option>
+                                <option value="Tabasco">Tabasco</option>
+                                <option value="Tamaulipas">Tamaulipas</option>
+                                <option value="Tlaxcala">Tlaxcala</option>
+                                <option value="Veracruz">Veracruz</option>
+                                <option value="Yucatán">Yucatán</option>
+                                <option value="Zacatecas">Zacatecas</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="guardar-producto">
+                <button type="button" id="btn-editar" class="boton-secundario">
+                    <img class="icono" alt="" src="../../recursos/iconos/icono_editar.svg">
+                    <div class="texto-boton">Editar Proveedor</div>
+                </button>
+                 <button type="button" id="btn-eliminar" class="boton-eliminar">
+                    <img class="icono" alt="" src="../../recursos/iconos/icono_basura.svg">
+                    <div class="texto-boton">Eliminar Proveedor</div>
+                </button>
+                <button type="submit" id="btn-guardar" class="boton" style="display: none;">
+                    <img class="icono" alt="" src="../../recursos/iconos/icono_guardar.svg">
+                    <div class="texto-boton">Guardar Cambios</div>
+                </button>
+                <button type="button" id="btn-cancelar" class="boton-cancelar" style="display: none;">
+                    <img class="icono" alt="" src="../../recursos/iconos/icono_eliminar.svg">
+                    <div class="texto-boton">Cancelar</div>
+                </button>
+            </div>
+        </form>
+
+       <!-- Historial de Compras Mejorado -->
+        <div class="historial-compras" id="historial-compras">
+            <div class="historial-header">
+                 <div class="contenedor-titulo">
+                    <img src="../../recursos/iconos/icono_ordenes.svg">
+                    <span class="titulo-historial" >Gestión de Productos</span>
+                </div>
+                
+                <!-- Área de filtros -->
+                <div class="filtros-container">
+                    <div class="buscador-wrapper">
+                        <img class="buscador-icon" src="../../recursos/iconos/icono_buscar.svg">
+                        <input type="text" id="buscador" class="buscador" placeholder="Buscar por productos...">
+                    </div>
+                    <div class="boton-lista" id="agregarLista">
+                        <img class="icono" alt="" src="../../recursos/iconos/icono_agregar.svg">
+                        <div class="texto-boton">Añadir Producto</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tabla-container">
+                <table class="compras-table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Opciones</th>
+                            <th>Disponibilidad</th>
+                        </tr>
+                    </thead>
+                     <tbody id="productos-tbody">
+                    <!-- Ejemplos de productos -->
+                    <tr>
+                        <td>
+                            <div class="producto-nombre-lista">Café Americano</div>
+                        </td>
+                        <td>
+                            <span class="producto-precio">$45.00</span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-edit" onclick="editarPrecio(this)">
+                                    <img class="icono" alt="" src="../../recursos/iconos/icono_editar.svg">
+                                    <span>Editar</span>
+                                </button>
+                                <button class="btn-delete" onclick="eliminarProducto(this)">
+                                    <img class="icono" alt="" src="../../recursos/iconos/icono_basura.svg">
+                                    <span>Eliminar</span>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="disponibilidad-container">
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" checked onchange="cambiarDisponibilidad(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                  
+                    
+                   
+                </tbody>
+                </table>
+            </div>
+
+             <!-- Estado sin resultados -->
+            <div id="sin-resultados" class="sin-resultados" style="display: none;">
+                <div class="sin-resultados-icon">
+                    <img style="width: 70px;" src="../../recursos/iconos/icono_sin_busqueda.svg" alt="">
+                </div>
+                <div>No se encontraron productos</div>
+                <div style="font-size: 14px; margin-top: 8px; opacity: 0.7;">Prueba con otros términos de búsqueda</div>
+            </div>
+
+            <!-- Estado vacío (oculto por defecto) -->
+            <div id="emptyState" class="no-historial" style="display: none;">
+                <div class="no-historial-icon">
+                     <img style="width: 60px;" src="../../recursos/iconos/icono_carrito.svg" alt="">
+                </div>
+                <div>No hay productos registrados</div>
+                <div style="font-size: 14px; margin-top: 8px; opacity: 0.7;">Las productos aparecerán aquí una vez que se registre el precio de un producto</div>
+            </div>
+        </div>
+    </div>
+   <!-- Script -->
+
+    <script src="../../js/funciones/navegacion.js"></script>
+    <script type="module" src="../../js/proveedores/alertaProveedores.js"></script>
+    <script type="module" src="../../js/proveedores/informacionProveedores.js"></script>
+    <script type="module" src="../../js/proveedores/listaProveedores.js"></script>
+</body>
+</html>

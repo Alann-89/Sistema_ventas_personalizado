@@ -1,0 +1,8 @@
+/* Contenedor para los campos de información */
+.contenedor-informacion {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 70%;
+    gap: 20px;
+}

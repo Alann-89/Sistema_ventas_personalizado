@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, width=device-width">
+  <title>Información del Cliente</title>
+
+  
+  <link rel="stylesheet" href="../../recursos/css/alertas.css">
+  <link rel="stylesheet" href="../../recursos/css/globales.css">
+  <link rel="stylesheet" href="../../recursos/css/detallesCompra.css">
+ 
+
+ 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
+</head>
+<body>
+  <div class="contenedor-todo">
+    <div class="fondo"></div>
+    
+    <!-- Navegación -->
+    <div class="navegacion">
+        <div class="boton-menu" id="resumenContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_resumen.svg">
+            <div class="texto-boton">Resumen</div>
+        </div>
+        <div class="boton-menu" id="clientesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_clientes.svg">
+            <div class="texto-boton">Clientes</div>
+        </div>
+        <div class="boton-menu activo" id="productosContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_productos.svg">
+            <div class="texto-boton">Productos</div>
+        </div>
+        <div class="boton-menu" id="ordenesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_ordenes.svg">
+            <div class="texto-boton">Pedidos</div>
+        </div>
+        <div class="boton-menu" id="provedoresContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_provedores.svg">
+            <div class="texto-boton">Proveedores</div>
+        </div>
+        <div class="boton-menu" id="rutasContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_rutas.svg">
+            <div class="texto-boton">Rutas</div>
+        </div>
+        <div class="boton-menu" id="reportesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_reportes.svg">
+            <div class="texto-boton">Reportes</div>
+        </div>
+        <div class="boton-menu" id="ajustesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_ajustes.svg">
+            <div class="texto-boton">Ajustes</div>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="contenedor-formulario" id="contenedor-formulario">
+        <div class="nombre-producto">
+            <button class="boton-atras">
+                <img class="icono-atras" alt="" src="../../recursos/iconos/icono_atras.svg">
+            </button>
+            <span id="titulo-cliente">Detalles de la Compra</span>
+        </div>
+    
+        
+        <div class="container">
+            <!-- Header de la compra -->
+            <div class="detalle-compra-header">
+                <div class="compra-info-principal">
+                    <div class="numero-orden" id="pedido"></div>
+                    <div class="contenedor-titulo">
+                        <img class="icono2" src="../../recursos/iconos/icono_calendario.svg"> 
+                        <span class="fecha-compra" id="fecha"></span> 
+                    </div>
+                    </div>
+                <div class="estado-compra" id="estado-pedido"> </div>
+            </div>
+
+            <!-- Contenido principal -->
+            <div class="detalle-contenido">
+                <!-- Productos del pedido -->
+                <div class="productos-compra">
+                    <div class="seccion-titulo">
+                        <img class="icono2" src="../../recursos/iconos/icono_carrito_reporte.svg">  
+                        Items del Pedido
+                    </div>
+                    <div class="productos-lista" id="lista-productos">
+                        <!-- Los productos se cargarán dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Resumen del pedido -->
+                <div class="resumen-compra">
+                    <div class="seccion-titulo">
+                        <img class="icono2" src="../../recursos/iconos/icono_reporte_pedido.svg">  
+                        Resumen del Pedido
+                    </div>
+                    <div id="resumen-contenido" class="productos-lista">
+                        <!-- El resumen se calculará dinámicamente -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información del pedido -->
+            <div class="info-adicional">
+                <div class="info-card">
+                    <div class="seccion-titulo">
+                        <img class="icono2" src="../../recursos/iconos/icono_clientes.svg">  
+                        Información del Cliente
+                    </div>
+                    <div class="info-contenido">
+                        <div class="info-columna">
+                            <div class="info-item">
+                                <div class="info-label">Cliente ID</div>
+                                <div class="info-value" id="cliente-id"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Nombre completo</div>
+                                <div class="info-value" id="cliente-nombre"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Email</div>
+                                <div class="info-value" id="cliente-email"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Teléfono</div>
+                                <div class="info-value" id="cliente-telefono"></div>
+                            </div>
+                        </div>
+                        <div class="info-columna">
+                            <div class="info-item">
+                                <div class="info-label">Dirección</div>
+                                <div class="info-value" id="cliente-direccion"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Ciudad</div>
+                                <div class="info-value" id="cliente-ciudad"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Código Postal</div>
+                                <div class="info-value" id="cliente-cp"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Estado</div>
+                                <div class="info-value" id="cliente-estado"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="seccion-titulo">
+                        <img class="icono2" src="../../recursos/iconos/icono_editar_pedido.svg">  
+                        Detalles del Pedido
+                    </div>
+                    <div class="info-contenido">
+                        <div class="info-columna">
+                            <div class="info-item">
+                                <div class="info-label">ID del pedido</div>
+                                <div class="info-value" id="pedido-id">1234</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Estado actual</div>
+                                <div class="info-value" id="pedido-estado"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Fecha de creación</div>
+                                <div class="info-value" id="pedido-fecha"></div>
+                            </div>
+                        </div>
+                        <div class="info-columna">
+                            <div class="info-item">
+                                <div class="info-label">Última actualización</div>
+                                <div class="info-value" id="pedido-actualizacion"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Total de items</div>
+                                <div class="info-value" id="pedido-items"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Observaciones</div>
+                                <div class="info-value" id="pedido-observaciones"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="acciones-compra">
+                <button class="btn btn-primary" id="btn-imprimir">
+                    <img class="icono2" src="../../recursos/iconos/icono_impresora.svg">
+                    Imprimir Pedido
+                </button>
+                <button class="btn btn-secondary" id="btn-editar">
+                    <img class="icono2" src="../../recursos/iconos/icono_editar.svg">
+                    Editar Estado
+                </button>
+            </div>
+        </div>
+        
+        <!-- Modal para editar estado del pedido -->
+        <div id="estadoModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Editar Estado del Pedido</div>
+                    <span class="close" onclick="closeEditModal()">&times;</span>
+                </div>
+                <div style="padding: 20px 24px;">
+                    <form id="estadoForm">
+                        <div class="form-group">
+                            <label class="form-label" for="selectEstado">Nuevo Estado</label>
+                            <select id="selectEstado" class="form-input" required>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="proceso">En proceso</option>
+                                <option value="completado">Completado</option>
+                                <option value="cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                        <div class="modal-actions">
+                            <button type="submit" class="boton">
+                                <img class="icono" alt="" src="../../recursos/iconos/icono_guardar.svg">
+                                <div class="texto-boton">Guardar Cambios</div>
+                            </button>
+                            <button type="button" class="btn-secondary2" onclick="closeEditModal()">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+    <!-- Script -->
+    <script src="../../js/funciones/navegacion.js"></script>
+    <script type="module" src="../../js/clientes/alertaClientes.js"></script>
+    <script type="module" src="../../js/clientes/detallesPedido.js"></script>
+</body>
+</html>

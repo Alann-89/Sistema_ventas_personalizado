@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Pedidos e Inventario</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-button-primary: #83b759;
+            --color-active: #83b759;
+            --color-text-primary: #1a0f15;
+            --color-hover: #f0f1ec;
+            --color-delete: #ffebee;
+            --border-radius-button: 8px;
+            --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --color-warning: #ff9800;
+            --color-success: #4caf50;
+            --color-error: #f44336;
+        }
+
+        body {
+            font-family: Inter, sans-serif;
+            background-color: #f0f1ec;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .formulario-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: #f6f7ed;
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .formulario-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .titulo-formulario {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a0f15;
+            margin-bottom: 8px;
+        }
+
+        .subtitulo-formulario {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .tablas-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .tabla-section {
+            background-color: #fefff5;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e0e1dd;
+        }
+
+        .tabla-titulo {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a0f15;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contador-productos {
+            background-color: var(--color-button-primary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .contador-warning {
+            background-color: var(--color-warning);
+        }
+
+        .contador-error {
+            background-color: var(--color-error);
+        }
+
+        .contador-success {
+            background-color: var(--color-success);
+        }
+
+        .tabla-container {
+            overflow-y: auto;
+            border-radius: 8px;
+            border: 1px solid #e0e1dd;
+            max-height: 500px;
+            scrollbar-width: thin;
+            scrollbar-color: #83b759 #f0f1ec;
+        }
+
+        .tabla-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .tabla-container::-webkit-scrollbar-track {
+            background: #f0f1ec;
+            border-radius: 10px;
+            margin: 5px;
+        }
+
+        .tabla-container::-webkit-scrollbar-thumb {
+            background: #83b759;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .tabla-container::-webkit-scrollbar-thumb:hover {
+            background: #6da047;
+        }
+
+        .productos-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .productos-table thead {
+            background-color: rgba(189, 242, 171, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .productos-table th {
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #1a0f15;
+            border-bottom: 3px solid #83b759;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .productos-table td {
+            padding: 12px 16px;
+            background-color: #fefff5;
+            border-bottom: 1px solid #e0e1dd;
+            vertical-align: middle;
+        }
+
+        .productos-table tbody tr:hover td {
+            background-color: #f0f1ec !important;
+            transform: translateY(-1px);
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .productos-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .producto-nombre {
+            font-weight: 600;
+            color: #1a0f15;
+            font-size: 15px;
+        }
+
+        .producto-precio {
+            font-weight: 600;
+            color: #83b759;
+            font-size: 15px;
+        }
+
+        .cliente-nombre {
+            font-weight: 600;
+            color: #1a0f15;
+            font-size: 15px;
+        }
+
+        .fecha-pedido {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .estado-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .estado-pendiente {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .estado-completo {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .estado-faltante {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .cantidad-badge {
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            min-width: 30px;
+        }
+
+        .cantidad-necesaria {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .cantidad-disponible {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .cantidad-faltante {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+
+        .btn {
+            border: none;
+            font-size: 13px;
+            all: unset;
+            border-radius: var(--border-radius-button);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 12px;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: Inter, sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-ver {
+            background-color: #e8f5e8;
+            color: var(--color-text-primary);
+        }
+
+        .btn-ver:hover {
+            background-color: var(--color-button-primary);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-completar {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .btn-completar:hover {
+            background-color: #1976d2;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .mensaje-vacio {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            font-style: italic;
+        }
+
+        .resumen-stats {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background-color: #fefff5;
+            border: 1px solid #e0e1dd;
+            border-radius: 8px;
+            padding: 12px 16px;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--color-button-primary);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .btn-agregar-pedido {
+            background-color: var(--color-button-primary);
+            color: white;
+            border: none;
+            font-size: 16px;
+            all: unset;
+            border-radius: var(--border-radius-button);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            gap: 8px;
+            transition: all 0.2s ease;
+            font-family: Inter, sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .btn-agregar-pedido:hover {
+            background-color: #6da047;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.activo {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #fefff5;
+            border-radius: 12px;
+            padding: 24px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid #e0e1dd;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e0e1dd;
+        }
+
+        .modal-titulo {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a0f15;
+        }
+
+        .btn-cerrar {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-cerrar:hover {
+            background-color: #f0f1ec;
+            color: #1a0f15;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #1a0f15;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e0e1dd;
+            border-radius: 6px;
+            font-family: Inter, sans-serif;
+            font-size: 14px;
+            background-color: #fefff5;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-button-primary);
+        }
+
+        .productos-seleccion {
+            border: 2px solid #e0e1dd;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #fefff5;
+        }
+
+        .producto-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e0e1dd;
+        }
+
+        .producto-item:last-child {
+            border-bottom: none;
+        }
+
+        .producto-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .producto-cantidad-input {
+            width: 80px;
+            padding: 6px 8px;
+            border: 1px solid #e0e1dd;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 2px solid #e0e1dd;
+        }
+
+        .btn-guardar-pedido, .btn-cancelar-pedido {
+            border: none;
+            font-size: 14px;
+            all: unset;
+            border-radius: var(--border-radius-button);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: Inter, sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-guardar-pedido {
+            background-color: var(--color-button-primary);
+            color: white;
+        }
+
+        .btn-guardar-pedido:hover {
+            background-color: #6da047;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-cancelar-pedido {
+            background-color: #f5f5f5;
+            color: #666;
+            border: 1px solid #e0e1dd;
+        }
+
+        .btn-cancelar-pedido:hover {
+            background-color: #ebebeb;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 1200px) {
+            .tablas-container {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .header-actions {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+            
+            .btn-agregar-pedido {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="formulario-container">
+        <div class="formulario-header">
+            <div class="header-actions">
+                <div>
+                    <h1 class="titulo-formulario">Gestión de Pedidos e Inventario</h1>
+                    <p class="subtitulo-formulario">Monitorea tus pedidos pendientes y el estado de tu inventario</p>
+                </div>
+                <button class="btn-agregar-pedido" onclick="abrirModalNuevoPedido()">
+                    ➕ Nuevo Pedido
+                </button>
+            </div>
+        </div>
+
+        <div class="resumen-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalPedidos">5</div>
+                <div class="stat-label">Pedidos Pendientes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="productosCompletos">8</div>
+                <div class="stat-label">Productos Completos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="productosFaltantes">3</div>
+                <div class="stat-label">Productos Faltantes</div>
+            </div>
+        </div>
+
+        <div class="tablas-container">
+            <!-- Tabla de Pedidos Pendientes -->
+            <div class="tabla-section">
+                <div class="tabla-titulo">
+                    📋 Pedidos Pendientes
+                    <span class="contador-productos" id="contadorPedidos">5</span>
+                </div>
+                <div class="tabla-container">
+                    <table class="productos-table">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Fecha</th>
+                                <th>Productos</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaPedidos">
+                            <tr>
+                                <td>
+                                    <div class="cliente-nombre">María González</div>
+                                    <div class="fecha-pedido">Pedido #001</div>
+                                </td>
+                                <td>
+                                    <div>28/05/2025</div>
+                                    <div class="fecha-pedido">Hace 5 días</div>
+                                </td>
+                                <td>
+                                    <div class="cantidad-badge cantidad-necesaria">3 items</div>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-faltante">Faltantes</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-ver" onclick="verDetallesPedido('001')">Ver Detalles</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="cliente-nombre">Carlos Martínez</div>
+                                    <div class="fecha-pedido">Pedido #002</div>
+                                </td>
+                                <td>
+                                    <div>29/05/2025</div>
+                                    <div class="fecha-pedido">Hace 4 días</div>
+                                </td>
+                                <td>
+                                    <div class="cantidad-badge cantidad-necesaria">2 items</div>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-completo">Completo</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-completar" onclick="completarPedido('002')">Completar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="cliente-nombre">Ana Rodríguez</div>
+                                    <div class="fecha-pedido">Pedido #003</div>
+                                </td>
+                                <td>
+                                    <div>30/05/2025</div>
+                                    <div class="fecha-pedido">Hace 3 días</div>
+                                </td>
+                                <td>
+                                    <div class="cantidad-badge cantidad-necesaria">4 items</div>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-pendiente">Pendiente</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-ver" onclick="verDetallesPedido('003')">Ver Detalles</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="cliente-nombre">Luis Fernández</div>
+                                    <div class="fecha-pedido">Pedido #004</div>
+                                </td>
+                                <td>
+                                    <div>01/06/2025</div>
+                                    <div class="fecha-pedido">Hace 1 día</div>
+                                </td>
+                                <td>
+                                    <div class="cantidad-badge cantidad-necesaria">1 item</div>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-completo">Completo</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-completar" onclick="completarPedido('004')">Completar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="cliente-nombre">Patricia Silva</div>
+                                    <div class="fecha-pedido">Pedido #005</div>
+                                </td>
+                                <td>
+                                    <div>02/06/2025</div>
+                                    <div class="fecha-pedido">Hoy</div>
+                                </td>
+                                <td>
+                                    <div class="cantidad-badge cantidad-necesaria">5 items</div>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-faltante">Faltantes</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-ver" onclick="verDetallesPedido('005')">Ver Detalles</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabla de Estado del Inventario -->
+            <div class="tabla-section">
+                <div class="tabla-titulo">
+                    📦 Estado del Inventario
+                    <span class="contador-productos contador-warning" id="contadorInventario">11</span>
+                </div>
+                <div class="tabla-container">
+                    <table class="productos-table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Necesario</th>
+                                <th>Disponible</th>
+                                <th>Faltante</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaInventario">
+                            <tr>
+                                <td>
+                                    <div class="producto-nombre">Manzanas Rojas</div>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-necesaria">25 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">30 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">0 kg</span>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-completo">Completo</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="producto-nombre">Plátanos</div>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-necesaria">40 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">35 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-faltante">5 kg</span>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-faltante">Faltante</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="producto-nombre">Naranjas</div>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-necesaria">20 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">25 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">0 kg</span>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-completo">Completo</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="producto-nombre">Lechugas</div>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-necesaria">15 unid</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">10 unid</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-faltante">5 unid</span>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-faltante">Faltante</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="producto-nombre">Tomates</div>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-necesaria">18 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">20 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">0 kg</span>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-completo">Completo</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="producto-nombre">Zanahorias</div>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-necesaria">12 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">8 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-faltante">4 kg</span>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-faltante">Faltante</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="producto-nombre">Papas</div>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-necesaria">30 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">35 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">0 kg</span>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-completo">Completo</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="producto-nombre">Cebollas</div>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-necesaria">8 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">10 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">0 kg</span>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-completo">Completo</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="producto-nombre">Apio</div>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-necesaria">6 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">8 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">0 kg</span>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-completo">Completo</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="producto-nombre">Brócoli</div>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-necesaria">10 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">12 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">0 kg</span>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-completo">Completo</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="producto-nombre">Espinacas</div>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-necesaria">5 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">7 kg</span>
+                                </td>
+                                <td>
+                                    <span class="cantidad-badge cantidad-disponible">0 kg</span>
+                                </td>
+                                <td>
+                                    <span class="estado-badge estado-completo">Completo</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Nuevo Pedido -->
+    <div class="modal-overlay" id="modalNuevoPedido">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-titulo">Crear Nuevo Pedido</h2>
+                <button class="btn-cerrar" onclick="cerrarModalNuevoPedido()">×</button>
+            </div>
+            
+            <form id="formNuevoPedido">
+                <div class="form-group">
+                    <label class="form-label" for="clienteNombre">Nombre del Cliente</label>
+                    <input type="text" id="clienteNombre" class="form-input" placeholder="Ingresa el nombre del cliente" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="fechaPedido">Fecha del Pedido</label>
+                    <input type="date" id="fechaPedido" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Productos del Pedido</label>
+                    <div class="productos-seleccion" id="productosSeleccion">
+                        <div class="producto-item">
+                            <div class="producto-info">
+                                <div class="producto-nombre">Manzanas Rojas</div>
+                                <div class="fecha-pedido">Disponible: 30 kg</div>
+                            </div>
+                            <input type="number" class="producto-cantidad-input" placeholder="0" min="0" data-producto="manzanas">
+                        </div>
+                        <div class="producto-item">
+                            <div class="producto-info">
+                                <div class="producto-nombre">Plátanos</div>
+                                <div class="fecha-pedido">Disponible: 35 kg</div>
+                            </div>
+                            <input type="number" class="producto-cantidad-input" placeholder="0" min="0" data-producto="platanos">
+                        </div>
+                        <div class="producto-item">
+                            <div class="producto-info">
+                                <div class="producto-nombre">Naranjas</div>
+                                <div class="fecha-pedido">Disponible: 25 kg</div>
+                            </div>
+                            <input type="number" class="producto-cantidad-input" placeholder="0" min="0" data-producto="naranjas">
+                        </div>
+                        <div class="producto-item">
+                            <div class="producto-info">
+                                <div class="producto-nombre">Lechugas</div>
+                                <div class="fecha-pedido">Disponible: 10 unid</div>
+                            </div>
+                            <input type="number" class="producto-cantidad-input" placeholder="0" min="0" data-producto="lechugas">
+                        </div>
+                        <div class="producto-item">
+                            <div class="producto-info">
+                                <div class="producto-nombre">Tomates</div>
+                                <div class="fecha-pedido">Disponible: 20 kg</div>
+                            </div>
+                            <input type="number" class="producto-cantidad-input" placeholder="0" min="0" data-producto="tomates">
+                        </div>
+                        <div class="producto-item">
+                            <div class="producto-info">
+                                <div class="producto-nombre">Zanahorias</div>
+                                <div class="fecha-pedido">Disponible: 8 kg</div>
+                            </div>
+                            <input type="number" class="producto-cantidad-input" placeholder="0" min="0" data-producto="zanahorias">
+                        </div>
+                        <div class="producto-item">
+                            <div class="producto-info">
+                                <div class="producto-nombre">Papas</div>
+                                <div class="fecha-pedido">Disponible: 35 kg</div>
+                            </div>
+                            <input type="number" class="producto-cantidad-input" placeholder="0" min="0" data-producto="papas">
+                        </div>
+                        <div class="producto-item">
+                            <div class="producto-info">
+                                <div class="producto-nombre">Cebollas</div>
+                                <div class="fecha-pedido">Disponible: 10 kg</div>
+                            </div>
+                            <input type="number" class="producto-cantidad-input" placeholder="0" min="0" data-producto="cebollas">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancelar-pedido" onclick="cerrarModalNuevoPedido()">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn-guardar-pedido">
+                        ✅ Crear Pedido
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo para los pedidos
+        const pedidosData = [
+            {
+                id: '001',
+                cliente: 'María González',
+                fecha: '28/05/2025',
+                productos: [
+                    { nombre: 'Plátanos', cantidad: 5, disponible: 3 },
+                    { nombre: 'Lechugas', cantidad: 2, disponible: 1 },
+                    { nombre: 'Zanahorias', cantidad: 3, disponible: 2 }
+                ],
+                estado: 'faltante'
+            },
+            {
+                id: '002',
+                cliente: 'Carlos Martínez',
+                fecha: '29/05/2025',
+                productos: [
+                    { nombre: 'Manzanas Rojas', cantidad: 10, disponible: 10 },
+                    { nombre: 'Naranjas', cantidad: 8, disponible: 8 }
+                ],
+                estado: 'completo'
+            },
+            // ... más pedidos
+        ];
+
+        let contadorPedidos = 6; // Para generar IDs únicos
+
+        function verDetallesPedido(pedidoId) {
+            const pedido = pedidosData.find(p => p.id === pedidoId);
+            if (pedido) {
+                let detalles = `Pedido ${pedidoId} - ${pedido.cliente}\n\nProductos:\n`;
+                pedido.productos.forEach(producto => {
+                    const estado = producto.cantidad <= producto.disponible ? '✅' : '❌';
+                    detalles += `${estado} ${producto.nombre}: ${producto.cantidad} (Disponible: ${producto.disponible})\n`;
+                });
+                alert(detalles);
+            }
+        }
+
+        function completarPedido(pedidoId) {
+            if (confirm(`¿Estás seguro de que quieres marcar el pedido ${pedidoId} como completado?`)) {
+                alert(`Pedido ${pedidoId} marcado como completado`);
+                // Aquí iría la lógica para actualizar el estado del pedido
+            }
+        }
+
+        function abrirModalNuevoPedido() {
+            // Establecer fecha actual
+            const hoy = new Date();
+            const fechaFormateada = hoy.toISOString().split('T')[0];
+            document.getElementById('fechaPedido').value = fechaFormateada;
+            
+            // Mostrar modal
+            document.getElementById('modalNuevoPedido').classList.add('activo');
+        }
+
+        function cerrarModalNuevoPedido() {
+            document.getElementById('modalNuevoPedido').classList.remove('activo');
+            document.getElementById('formNuevoPedido').reset();
+        }
+
+        function agregarNuevoPedido(cliente, fecha, productos) {
+            const nuevoPedidoId = String(contadorPedidos).padStart(3, '0');
+            contadorPedidos++;
+            
+            // Calcular cantidad de productos
+            const cantidadProductos = productos.filter(p => p.cantidad > 0).length;
+            
+            // Determinar estado del pedido (simplificado)
+            const estado = 'pendiente';
+            const estadoClass = 'estado-pendiente';
+            
+            // Formatear fecha
+            const fechaObj = new Date(fecha);
+            const fechaFormateada = fechaObj.toLocaleDateString('es-ES');
+            
+            // Crear nueva fila
+            const nuevaFila = `
+                <tr>
+                    <td>
+                        <div class="cliente-nombre">${cliente}</div>
+                        <div class="fecha-pedido">Pedido #${nuevoPedidoId}</div>
+                    </td>
+                    <td>
+                        <div>${fechaFormateada}</div>
+                        <div class="fecha-pedido">Nuevo</div>
+                    </td>
+                    <td>
+                        <div class="cantidad-badge cantidad-necesaria">${cantidadProductos} items</div>
+                    </td>
+                    <td>
+                        <span class="estado-badge ${estadoClass}">Pendiente</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-ver" onclick="verDetallesPedido('${nuevoPedidoId}')">Ver Detalles</button>
+                    </td>
+                </tr>
+            `;
+            
+            // Agregar la fila a la tabla
+            document.getElementById('tablaPedidos').insertAdjacentHTML('beforeend', nuevaFila);
+            
+            // Actualizar contador
+            const contadorElement = document.getElementById('contadorPedidos');
+            const nuevoTotal = parseInt(contadorElement.textContent) + 1;
+            contadorElement.textContent = nuevoTotal;
+            document.getElementById('totalPedidos').textContent = nuevoTotal;
+            
+            // Guardar en datos (opcional, para la funcionalidad de ver detalles)
+            pedidosData.push({
+                id: nuevoPedidoId,
+                cliente: cliente,
+                fecha: fechaFormateada,
+                productos: productos.filter(p => p.cantidad > 0),
+                estado: estado
+            });
+        }
+
+        // Event listener para el formulario
+        document.getElementById('formNuevoPedido').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const cliente = document.getElementById('clienteNombre').value;
+            const fecha = document.getElementById('fechaPedido').value;
+            
+            // Recopilar productos seleccionados
+            const productosInputs = document.querySelectorAll('.producto-cantidad-input');
+            const productos = [];
+            
+            productosInputs.forEach(input => {
+                const cantidad = parseInt(input.value) || 0;
+                if (cantidad > 0) {
+                    const productoNombre = input.closest('.producto-item').querySelector('.producto-nombre').textContent;
+                    productos.push({
+                        nombre: productoNombre,
+                        cantidad: cantidad,
+                        disponible: cantidad // Simplificado
+                    });
+                }
+            });
+            
+            if (productos.length === 0) {
+                alert('Por favor, selecciona al menos un producto con cantidad mayor a 0.');
+                return;
+            }
+            
+            // Agregar el pedido
+            agregarNuevoPedido(cliente, fecha, productos);
+            
+            // Cerrar modal
+            cerrarModalNuevoPedido();
+            
+            // Mostrar confirmación
+            alert(`¡Pedido creado exitosamente!\nCliente: ${cliente}\nProductos: ${productos.length} items`);
+        });
+
+        // Cerrar modal al hacer clic fuera de él
+        document.getElementById('modalNuevoPedido').addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarModalNuevoPedido();
+            }
+        });
+
+        // Actualizar contadores automáticamente
+        function actualizarContadores() {
+            // Contar productos por estado
+            const filas = document.querySelectorAll('#tablaInventario tr');
+            let completos = 0;
+            let faltantes = 0;
+            
+            filas.forEach(fila => {
+                const estado = fila.querySelector('.estado-badge');
+                if (estado) {
+                    if (estado.classList.contains('estado-completo')) {
+                        completos++;
+                    } else if (estado.classList.contains('estado-faltante')) {
+                        faltantes++;
+                    }
+                }
+            });
+
+            document.getElementById('productosCompletos').textContent = completos;
+            document.getElementById('productosFaltantes').textContent = faltantes;
+        }
+
+        // Ejecutar al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            actualizarContadores();
+        });
+    </script>
+</body>
+</html>

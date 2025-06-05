@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, width=device-width">
+  
+  <link rel="stylesheet" href="../../recursos/css/alertas.css">
+    <link rel="stylesheet" href="../../recursos/css/globales.css" />
+    <link rel="stylesheet" href="../../recursos/css/categorias.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
+</head>
+<body>
+
+    <div class="contenedor-todo">
+        <div class="fondo"></div>
+        <div class="navegacion">
+            <div class="boton-menu" id="resumenContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_resumen.svg">
+                <div class="texto-boton">Resumen</div>
+            </div>
+            <div class="boton-menu" id="clientesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_clientes.svg">
+                <div class="texto-boton">Clientes</div>
+            </div>
+            <div class="boton-menu activo" id="productosContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_productos.svg">
+                <div class="texto-boton">Productos</div>
+            </div>
+            <div class="boton-menu" id="ordenesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_ordenes.svg">
+                <div class="texto-boton">Pedidos</div>
+            </div>
+            <div class="boton-menu" id="provedoresContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_provedores.svg">
+                <div class="texto-boton">Proveedores</div>
+            </div>
+            <div class="boton-menu" id="rutasContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_rutas.svg">
+                <div class="texto-boton">Rutas</div>
+            </div>
+            <div class="boton-menu" id="reportesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_reportes.svg">
+                <div class="texto-boton">Reportes</div>
+            </div>
+            <div class="boton-menu" id="ajustesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_ajustes.svg">
+                <div class="texto-boton">Ajustes</div>
+            </div>
+        </div>
+
+        <div class="frame-parent" id="contenedor-formulario">
+            <div class="contenedor-categorias">
+                    <div class="nombre-producto">
+                        <button class="boton-atras" onclick = "window.history.back()">
+                            <img class="icono-atras" alt="" src="../../recursos/iconos/icono_atras.svg">
+                        </button>
+                    Categorías
+                    </div>
+                <div class="form-container">
+                    <div class="form-title">Agregar Nueva Categoría</div>
+                    <form id="categoryForm">
+                        <div class="form-group">
+                            <label class="form-label" for="categoryName">Nombre de la Categoría</label>
+                            <input type="text" id="categoryName" class="form-input" placeholder="Ingresa el nombre de la categoría" required>
+                        </div>
+                        
+                        <button type="submit" class="boton">
+                            <img class="icono" alt="" src="../../recursos/iconos/icono_guardar.svg">
+                            <div class="texto-boton">Guardar Cambios</div>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Tabla de categorías -->
+                <div class="table-container">
+                    <div class="table-title">Lista de Categorías</div>
+                    <table class="table" id="categoriesTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categoriesTableBody">
+                            <!-- Las categorías se cargarán aquí dinámicamente -->
+                        </tbody>
+                    </table>
+
+                    <div id="emptyState" class="empty-state" style="display: none;">
+                        <div class="empty-state-icon">
+                            <img style="width: 60px;" src="../../recursos/iconos/icono_folder.svg" alt="">
+                        </div>
+                        <div>No hay categorías registradas</div>
+                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.7;">Agrega tu primera categoría usando el formulario de arriba</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para editar categoría -->
+            <div id="editModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title">Editar Categoría</div>
+                        <span class="close" onclick="closeEditModal()">&times;</span>
+                    </div>
+                    <div style="padding: 20px 24px;">
+                        <form id="editForm">
+                            <div class="form-group">
+                                <label class="form-label" for="editCategoryName">Nombre de la Categoría</label>
+                                <input type="text" id="editCategoryName" class="form-input" required>
+                                <input type="hidden" id="editCategoryId">
+                            </div>
+                            <div class="modal-actions">
+                                <button type="submit" class="boton">
+                                    <img class="icono" alt="" src="../../recursos/iconos/icono_guardar.svg">
+                                    <div class="texto-boton">Guardar Cambios</div>
+                                </button>
+                                <button type="button" class="btn-secondary" onclick="closeEditModal()">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Script -->
+    <script src="../../js/funciones/navegacion.js"></script>
+    <script type="module" src="../../js/productos/alertaProductos.js"></script>
+    <script type="module" src="../../js/productos/crudCategorias.js"></script> 
+</body>
+</html>

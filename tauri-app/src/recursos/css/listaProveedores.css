@@ -1,0 +1,201 @@
+.producto-nombre-lista {
+    font-weight: 600;
+    color: #1a0f15;
+    font-size: 16px;
+}
+
+/* Estilos para el precio */
+.producto-precio {
+    font-weight: 600;
+    font-size: 16px;
+    color: #1a0f15;
+}
+
+.precio-input {
+    background-color: #fefff5;
+    padding: 8px 12px;
+    border: 2px solid #e0e1dd;
+    border-radius: 8px;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 80px;
+    font-weight: 600;
+}
+
+.precio-input:focus {
+    border-color: var(--color-button-primary);
+}
+
+/* Estilos para los botones de opciones */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-edit, .btn-delete, .btn-save, .btn-cancel {
+    border: none;
+    font-size: 14px;
+    all: unset;
+    border-radius: var(--border-radius-button);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    gap: 8px;
+    transition: all 0.2s ease;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    min-width: 70px;
+}
+
+.btn-edit:hover {
+    background-color: var(--color-hover);
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-delete:hover {
+    background-color: var(--color-delate);
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-save {
+    background-color: #e8f5e8;
+    color: #2d5016;
+}
+
+.btn-save:hover {
+    background-color: #d4ecd4;
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-cancel {
+    background-color: #f5f5f5;
+    color: #666;
+}
+
+.btn-cancel:hover {
+    background-color: #ebebeb;
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-medium);
+}
+
+/* Estilos para el checkbox de disponibilidad - Más bonito */
+.disponibilidad-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.custom-checkbox input[type="checkbox"] {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: #fefff5;
+    border: 2px solid #e0e1dd;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-checkbox:hover .checkmark {
+    border-color: var(--color-button-primary);
+    transform: scale(1.05);
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: var(--color-button-primary);
+    border-color: var(--color-button-primary);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    animation: checkboxPulse 0.3s ease;
+}
+
+@keyframes checkboxPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Estado de edición */
+.editando {
+    background-color: #fff3cd !important;
+}
+
+/* Mensaje sin productos */
+.no-productos {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.close {
+    color: #666;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.nombre-producto {
+    margin-left: 70px;
+    position: relative;
+    font-size: 32px;
+    font-weight: 600;
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, width=device-width">
+  <title>Agregar Producto</title>
+
+  <link rel="stylesheet" href="../../recursos/css/alertas.css">
+  <link rel="stylesheet" href="../../recursos/css/agregar.css">
+  <link rel="stylesheet" href="../../recursos/css/globales.css" />
+  <link rel="stylesheet" href="../../recursos/css/agregarProductos.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
+</head>
+<body>
+  <div class="contenedor-todo">
+    <div class="fondo"></div>
+    <div class="navegacion">
+        <div class="boton-menu" id="resumenContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_resumen.svg">
+            <div class="texto-boton">Resumen</div>
+        </div>
+        <div class="boton-menu" id="clientesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_clientes.svg">
+            <div class="texto-boton">Clientes</div>
+        </div>
+        <div class="boton-menu activo" id="productosContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_productos.svg">
+            <div class="texto-boton">Productos</div>
+        </div>
+        <div class="boton-menu" id="ordenesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_ordenes.svg">
+            <div class="texto-boton">Pedidos</div>
+        </div>
+        <div class="boton-menu" id="provedoresContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_provedores.svg">
+            <div class="texto-boton">Proveedores</div>
+        </div>
+        <div class="boton-menu" id="rutasContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_rutas.svg">
+            <div class="texto-boton">Rutas</div>
+        </div>
+        <div class="boton-menu" id="reportesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_reportes.svg">
+            <div class="texto-boton">Reportes</div>
+        </div>
+        <div class="boton-menu" id="ajustesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_ajustes.svg">
+            <div class="texto-boton">Ajustes</div>
+        </div>
+    </div>
+
+    <div class="contenedor-formulario" id="contenedor-formulario">
+        <div class="nombre-producto">
+            <button class="boton-atras">
+                <img class="icono-atras" alt="" src="../../recursos/iconos/icono_atras.svg">
+            </button>
+            Agregar Nuevo Producto
+        </div>
+        <form id="formulario-agregar">
+            <div class="conetenedor-actualizar">
+                <div class="contenedor-imagen" id="imagen-preview-container">
+                    <img id="preview-img" class="imagen" alt="Vista previa" src="../../recursos/iconos/icono_imagen.svg">
+                </div>
+                
+                <div class="contenedor-informacion">
+                    <div class="informacion-producto">
+                        <div class="titulos">Nombre</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <input name="nombre" type="text" id="nombre" class="informacin-del-producto" placeholder="Nombre del producto" />
+                        </div>
+                    </div>
+                    <div class="informacion-producto">
+                        <div class="titulos">Precio</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <input name="precio" type="number" id="precio" class="informacin-del-producto" placeholder="0.00" step="0.01" min="0" />
+                        </div>
+                    </div>
+                    <div class="informacion-producto">
+                        <div class="titulos">Existencia</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <input name="existencia" type="number" id="existencia" class="informacin-del-producto" placeholder="0" />
+                        </div>
+                    </div>
+                    <div class="informacion-producto">
+                        <div class="titulos">Categoría</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <select name="categoria" id="categoria" class="informacin-del-producto">
+                                <option value="">Seleccionar categoría</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="informacion-producto">
+                        <div class="titulos">Descripción</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <textarea name="descripcion" id="descripcion" class="informacin-del-producto" placeholder="Descripción del producto" style="resize: none;"></textarea>
+                        </div>
+                    </div>
+                    <div class="informacion-producto">
+                        <div class="titulos">SKU / Código</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <input name="codigo" type="text" id="codigo" class="informacin-del-producto" placeholder="Código del producto" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Área para subir una imagen -->
+            <div class="actualizar" id="upload-area">
+                <img class="vector-icon" alt="" src="../../recursos/iconos/icono_vector.svg">
+                <div class="titulo2">Selecciona una imagen</div>
+                <input type="file" id="imagen" accept="image/*" style="display: none;"/>
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="guardar-producto">
+                <button type="submit" class="boton">
+                    <img class="icono" alt="" src="../../recursos/iconos/icono_guardar.svg">
+                    <div class="texto-boton">Guardar Producto</div>
+                </button>
+                <button type="button" id="btn-cancelar" class="boton-eliminar" >
+                    <img class="icono" alt="" src="../../recursos/iconos/icono_eliminar.svg">
+                    <div class="texto-boton">Cancelar</div>
+                </button>
+            </div>
+        </form>
+    </div>
+  </div>
+
+  <!-- Script -->
+    <script src="../../js/funciones/navegacion.js"></script>
+    <script type="module" src="../../js/productos/alertaProductos.js"></script>
+    <script type="module" src="../../js/productos/agregarProductos.js"></script>
+</body>
+</html>

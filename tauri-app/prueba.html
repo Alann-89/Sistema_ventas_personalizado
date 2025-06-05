@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
+  
+</head>
+<body>
+      <div class="contenedor-todo">
+        <div class="fondo"></div>
+        
+        <!-- Navegación lateral -->
+        <div class="navegacion">
+            <div class="boton-menu" id="resumenContainer">
+                <div class="icono">📊</div>
+                <div class="texto-boton">Resumen</div>
+            </div>
+            <div class="boton-menu" id="clientesContainer">
+                <div class="icono">👥</div>
+                <div class="texto-boton">Clientes</div>
+            </div>
+            <div class="boton-menu activo" id="productosContainer">
+                <div class="icono">📦</div>
+                <div class="texto-boton">Productos</div>
+            </div>
+            <div class="boton-menu" id="ordenesContainer">
+                <div class="icono">📋</div>
+                <div class="texto-boton">Órdenes</div>
+            </div>
+            <div class="boton-menu" id="provedoresContainer">
+                <div class="icono">🏢</div>
+                <div class="texto-boton">Proveedores</div>
+            </div>
+            <div class="boton-menu" id="rutasContainer">
+                <div class="icono">🚚</div>
+                <div class="texto-boton">Rutas</div>
+            </div>
+            <div class="boton-menu" id="reportesContainer">
+                <div class="icono">📈</div>
+                <div class="texto-boton">Reportes</div>
+            </div>
+            <div class="boton-menu" id="ajustesContainer">
+                <div class="icono">⚙️</div>
+                <div class="texto-boton">Ajustes</div>
+            </div>
+        </div>
+
+        <!-- Barra de búsqueda y acciones -->
+        <div class="contenedor-buscador">
+            <div class="buscador">
+                <div class="icono">🔍</div>
+                <input type="text" id="input-busqueda" placeholder="Buscar" class="texto-buscar">
+            </div>
+        </div>
+
+        <!-- Contenedor de productos -->
+        <div class="contenedor-tarjetas" id="contenedor-tarjetas">
+            <div class="tarjetas">
+                <img class="imagen-producto" src="./src/recursos/imagenes/fresca.jpg" alt="Producto de ejemplo" />
+                    <b class="producto">Fresca</b>
+                    
+                    <div class="info-producto">
+                        <div class="div-datos">
+                            <span class="texto-cantidad">Cantidad:</span>
+                            <span class="cantidad">20</span>
+                        </div>
+                        
+                        <div class="item-precio">
+                            $25
+                        </div>
+                    </div>
+                    
+                    <div class="controles-cantidad">
+                        <input type="number" id="cantidad-${producto.id}" class="input-cantidad" min="1" value="1">
+                        <button class="btn-agregar-carrito">
+                            +
+                        </button>
+                    </div>
+            </div>
+             
+        </div>
+
+        <!-- Carrito de compras -->
+        <div class="carrito-container" id="carritoContainer">
+            <div class="carrito-header">
+                <div class="carrito-titulo">
+                    🛒 Carrito
+                    <span class="carrito-contador" id="carritoContador">0</span>
+                </div>
+                 <select id="selectCliente" style="margin-left: auto; padding: 5px; border-radius: 5px;">
+                    <option value="">Seleccionar cliente</option>
+                    <option value="cliente1">Cliente 1</option>
+                    <option value="cliente2">Cliente 2</option>
+                </select>
+            </div>
+            
+            <div class="carrito-items" id="carritoItems">
+                <div class="carrito-vacio" id="carritoVacio">
+                    <div class="carrito-vacio-icono">🛒</div>
+                    <p>Tu carrito está vacío</p>
+                    <p>Añade productos para comenzar</p>
+                </div>
+            </div>
+            
+            <div class="carrito-footer" id="carritoFooter" style="display: none;">
+                <button class="btn-limpiar" onclick="limpiarCarrito()">
+                    🗑️ Limpiar Carrito
+                </button>
+                <div class="carrito-total">
+                    <span>Total:</span>
+                    <span id="carritoTotal">$0.00</span>
+                </div>
+                <button class="btn-procesar" onclick="procesarPedido()">
+                    ✅ Procesar Pedido
+                </button>
+            </div>
+        </div>
+
+        <!-- Botón subir -->
+        <button id="botonSubir" class="botonSubir">
+            <div class="icono">⬆️</div>
+        </button>
+    </div>
+
+        
+
+    <script>
+        // Datos de ejemplo de productos
+        const productosEjemplo = [
+            {
+                id: 1,
+                nombre: "Manzanas Rojas",
+                cantidad: 50,
+                precio: 2.50,
+                imagen: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=300&h=200&fit=crop"
+            },
+            {
+                id: 2,
+                nombre: "Plátanos",
+                cantidad: 75,
+                precio: 1.20,
+                imagen: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=300&h=200&fit=crop"
+            },
+            {
+                id: 3,
+                nombre: "Naranjas",
+                cantidad: 40,
+                precio: 3.00,
+                imagen: "https://images.unsplash.com/photo-1580052614034-c55d20bfee3b?w=300&h=200&fit=crop"
+            },
+            {
+                id: 4,
+                nombre: "Fresas",
+                cantidad: 25,
+                precio: 4.50,
+                imagen: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=300&h=200&fit=crop"
+            },
+            {
+                id: 5,
+                nombre: "Uvas Verdes",
+                cantidad: 30,
+                precio: 5.00,
+                imagen: "https://images.unsplash.com/photo-1423483641154-5411ec9c0ddf?w=300&h=200&fit=crop"
+            },
+            {
+                id: 6,
+                nombre: "Piñas",
+                cantidad: 15,
+                precio: 6.00,
+                imagen: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=300&h=200&fit=crop"
+            },
+            {
+                id: 7,
+                nombre: "Kiwis",
+                cantidad: 35,
+                precio: 0.80,
+                imagen: "https://images.unsplash.com/photo-1585059895524-72359e06133a?w=300&h=200&fit=crop"
+            },
+            {
+                id: 8,
+                nombre: "Mangos",
+                cantidad: 20,
+                precio: 2.00,
+                imagen: "https://images.unsplash.com/photo-1553279768-865429cd282b?w=300&h=200&fit=crop"
+            }
+        ];
+
+        let carrito = [];
+
+        // Cargar productos al iniciar
+        function cargarProductos() {
+            const contenedor = document.getElementById('contenedor-tarjetas');
+            contenedor.innerHTML = '';
+
+            productosEjemplo.forEach(producto => {
+                const tarjeta = document.createElement('div');
+                tarjeta.className = 'tarjetas';
+                tarjeta.innerHTML = `
+                    <img class="imagen-producto" src="${producto.imagen}" alt="${producto.nombre}" />
+                    <b class="producto">${producto.nombre}</b>
+                    <div class="div-datos">
+                        <div class="texto-cantidad">Cantidad:</div>
+                        <div class="cantidad">${producto.cantidad}</div>
+                    </div>
+                    <div class="item-precio" style="position: absolute; bottom: 45px; font-weight: 600; color: var(--color-success);">
+                        $${producto.precio.toFixed(2)}
+                    </div>
+                   <div style="display: flex; gap: 5px; align-items: center; margin-top: 10px;">
+                        <input type="number" id="cantidad-${producto.id}" min="1" value="1" style="width: 50px; padding: 4px; border-radius: 5px; border: 1px solid #ccc;">
+                        <button class="btn-agregar-carrito" onclick="agregarAlCarrito(${producto.id})">
+                            +
+                        </button>
+                    </div>
+                `;
+                contenedor.appendChild(tarjeta);
+            });
+        }
+
+        // Agregar producto al carrito
+        function agregarAlCarrito(productId) {
+            const producto = productosEjemplo.find(p => p.id === productId);
+            const itemExistente = carrito.find(item => item.id === productId);
+
+            if (itemExistente) {
+                const cantidadInput = document.getElementById(`cantidad-${productId}`);
+                const cantidadSeleccionada = parseInt(cantidadInput?.value || 1);
+                itemExistente.cantidadCarrito += cantidadSeleccionada;
+            } else {
+                carrito.push({
+                    ...producto,
+                     cantidadCarrito: cantidadSeleccionada
+                });
+            }
+
+            actualizarCarrito();
+            mostrarNotificacion(`${producto.nombre} agregado al carrito`);
+        }
+
+        // Actualizar visualización del carrito
+        function actualizarCarrito() {
+            const carritoItems = document.getElementById('carritoItems');
+            const carritoVacio = document.getElementById('carritoVacio');
+            const carritoFooter = document.getElementById('carritoFooter');
+            const carritoContador = document.getElementById('carritoContador');
+            const carritoTotal = document.getElementById('carritoTotal');
+
+            // Actualizar contador
+            const totalItems = carrito.reduce((sum, item) => sum + item.cantidadCarrito, 0);
+            carritoContador.textContent = totalItems;
+
+            if (carrito.length === 0) {
+                carritoVacio.style.display = 'block';
+                carritoFooter.style.display = 'none';
+                carritoItems.innerHTML = '';
+                carritoItems.appendChild(carritoVacio);
+            } else {
+                carritoVacio.style.display = 'none';
+                carritoFooter.style.display = 'block';
+                
+                carritoItems.innerHTML = '';
+                
+                carrito.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'carrito-item';
+                    itemElement.innerHTML = `
+                        <div class="item-info">
+                            <img src="${item.imagen}" alt="${item.nombre}" class="item-imagen">
+                            <div class="item-detalles">
+                                <div class="item-nombre">${item.nombre}</div>
+                                <div class="item-precio">${item.precio.toFixed(2)} c/u</div>
+                            </div>
+                        </div>
+                        <div class="item-controles">
+                            <div class="cantidad-controles">
+                                <button class="btn-cantidad" onclick="cambiarCantidad(${item.id}, -1)">-</button>
+                                <span class="item-cantidad">${item.cantidadCarrito}</span>
+                                <button class="btn-cantidad" onclick="cambiarCantidad(${item.id}, 1)">+</button>
+                            </div>
+                            <button class="btn-eliminar-item" onclick="eliminarDelCarrito(${item.id})">
+                                🗑️
+                            </button>
+                        </div>
+                    `;
+                    carritoItems.appendChild(itemElement);
+                });
+
+                // Calcular y mostrar total
+                const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidadCarrito), 0);
+                carritoTotal.textContent = `${total.toFixed(2)}`;
+            }
+        }
+
+        // Cambiar cantidad de un producto en el carrito
+        function cambiarCantidad(productId, cambio) {
+            const item = carrito.find(item => item.id === productId);
+            if (item) {
+                item.cantidadCarrito += cambio;
+                if (item.cantidadCarrito <= 0) {
+                    eliminarDelCarrito(productId);
+                } else {
+                    actualizarCarrito();
+                }
+            }
+        }
+
+        // Eliminar producto del carrito
+        function eliminarDelCarrito(productId) {
+            const index = carrito.findIndex(item => item.id === productId);
+            if (index > -1) {
+                const producto = carrito[index];
+                carrito.splice(index, 1);
+                actualizarCarrito();
+                mostrarNotificacion(`${producto.nombre} eliminado del carrito`);
+            }
+        }
+
+        // Limpiar todo el carrito
+        function limpiarCarrito() {
+            if (carrito.length > 0) {
+                carrito = [];
+                actualizarCarrito();
+                mostrarNotificacion('Carrito limpiado');
+            }
+        }
+
+        // Procesar pedido
+        function procesarPedido() {
+            if (carrito.length === 0) {
+                mostrarNotificacion('El carrito está vacío', 'error');
+                return;
+            }
+
+            const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidadCarrito), 0);
+            const resumen = carrito.map(item => 
+                `${item.nombre} x${item.cantidadCarrito} = ${(item.precio * item.cantidadCarrito).toFixed(2)}`
+            ).join('\n');
+
+            alert(`Pedido procesado exitosamente!\n\nResumen:\n${resumen}\n\nTotal: ${total.toFixed(2)}`);
+            
+            carrito = [];
+            actualizarCarrito();
+            mostrarNotificacion('Pedido procesado exitosamente', 'success');
+        }
+
+        // Mostrar notificación
+        function mostrarNotificacion(mensaje, tipo = 'success') {
+            // Crear elemento de notificación
+            const notificacion = document.createElement('div');
+            notificacion.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: ${window.innerWidth > 1200 ? 'calc(var(--cart-width) + 40px)' : '20px'};
+                background-color: ${tipo === 'error' ? '#e74c3c' : '#83B759'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                z-index: 10000;
+                font-weight: 500;
+                transform: translateY(-100px);
+                opacity: 0;
+                transition: all 0.3s ease;
+            `;
+            notificacion.textContent = mensaje;
+            
+            document.body.appendChild(notificacion);
+            
+            // Animar entrada
+            setTimeout(() => {
+                notificacion.style.transform = 'translateY(0)';
+                notificacion.style.opacity = '1';
+            }, 100);
+            
+            // Remover después de 3 segundos
+            setTimeout(() => {
+                notificacion.style.transform = 'translateY(-100px)';
+                notificacion.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(notificacion);
+                }, 300);
+            }, 3000);
+        }
+
+        // Funcionalidad de búsqueda
+        function filtrarProductos() {
+            const busqueda = document.getElementById('input-busqueda').value.toLowerCase();
+            const tarjetas = document.querySelectorAll('.tarjetas');
+            
+            tarjetas.forEach(tarjeta => {
+                const nombre = tarjeta.querySelector('.producto').textContent.toLowerCase();
+                if (nombre.includes(busqueda)) {
+                    tarjeta.style.display = 'flex';
+                } else {
+                    tarjeta.style.display = 'none';
+                }
+            });
+        }
+
+        // Botón subir
+        function mostrarBotonSubir() {
+            const contenedor = document.getElementById('contenedor-tarjetas');
+            const botonSubir = document.getElementById('botonSubir');
+            
+            if (contenedor.scrollTop > 300) {
+                botonSubir.style.display = 'block';
+            } else {
+                botonSubir.style.display = 'none';
+            }
+        }
+
+        // Funcionalidad responsive para el carrito
+        function toggleCarrito() {
+            const carrito = document.getElementById('carritoContainer');
+            carrito.classList.toggle('abierto');
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarProductos();
+            actualizarCarrito();
+            
+            // Búsqueda en tiempo real
+            document.getElementById('input-busqueda').addEventListener('input', filtrarProductos);
+            
+            // Scroll del contenedor de tarjetas
+            const contenedor = document.getElementById('contenedor-tarjetas');
+            contenedor.addEventListener('scroll', mostrarBotonSubir);
+            
+            // Botón subir
+            document.getElementById('botonSubir').addEventListener('click', function() {
+                contenedor.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Navegación (simulada)
+            document.querySelectorAll('.boton-menu').forEach(boton => {
+                boton.addEventListener('click', function() {
+                    document.querySelectorAll('.boton-menu').forEach(b => b.classList.remove('activo'));
+                    this.classList.add('activo');
+                });
+            });
+
+            // Responsive: botón para abrir carrito en móvil
+            if (window.innerWidth <= 1200) {
+                const btnCarrito = document.createElement('button');
+                btnCarrito.innerHTML = '🛒';
+                btnCarrito.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background-color: var(--color-success);
+                    color: white;
+                    border: none;
+                    border-radius: 50%;
+                    width: 50px;
+                    height: 50px;
+                    font-size: 20px;
+                    cursor: pointer;
+                    z-index: 1000;
+                    box-shadow: var(--shadow-strong);
+                `;
+                btnCarrito.addEventListener('click', toggleCarrito);
+                document.body.appendChild(btnCarrito);
+            }
+        });
+
+        // Cerrar carrito al hacer clic fuera (en móvil)
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                const carrito = document.getElementById('carritoContainer');
+                if (!carrito.contains(e.target) && !e.target.closest('.btn-agregar-carrito')) {
+                    carrito.classList.remove('abierto');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

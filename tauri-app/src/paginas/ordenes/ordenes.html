@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <link rel="stylesheet" href="../../recursos/css/alertas.css">
+    <link rel="stylesheet" href="../../recursos/css/globales.css" />
+    <link rel="stylesheet" href="../../recursos/css/ordenes.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
+   
+</head>
+<body>
+    <div class="contenedor-todo">
+        <div class="fondo"></div>
+        <div class="navegacion">
+            <div class="boton-menu" id="resumenContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_resumen.svg">
+                <div class="texto-boton">Resumen</div>
+            </div>
+            <div class="boton-menu" id="clientesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_clientes.svg">
+                <div class="texto-boton">Clientes</div>
+            </div>
+            <div class="boton-menu activo" id="productosContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_productos.svg">
+                <div class="texto-boton">Productos</div>
+            </div>
+            <div class="boton-menu" id="ordenesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_ordenes.svg">
+                <div class="texto-boton">Pedidos</div>
+            </div>
+            <div class="boton-menu" id="provedoresContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_provedores.svg">
+                <div class="texto-boton">Proveedores</div>
+            </div>
+            <div class="boton-menu" id="rutasContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_rutas.svg">
+                <div class="texto-boton">Rutas</div>
+            </div>
+            <div class="boton-menu" id="reportesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_reportes.svg">
+                <div class="texto-boton">Reportes</div>
+            </div>
+            <div class="boton-menu" id="ajustesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_ajustes.svg">
+                <div class="texto-boton">Ajustes</div>
+            </div>
+        </div>
+
+        <div class="formulario-container">
+            <div class="formulario-header">
+                <div class="header-actions">
+                    <div>
+                        <h1 class="titulo-formulario">Gestión de Pedidos e Inventario</h1>
+                        <p class="subtitulo-formulario">Monitorea tus pedidos pendientes y el estado de tu inventario</p>
+                    </div>
+                    <button class="boton" onclick="window.location.href='./crearOrden.html'">
+                        <img class="icono" alt="" src="../../recursos/iconos/icono_agregar.svg">
+                        Nuevo Pedido
+                    </button>
+                </div>
+            </div>
+
+            <div class="resumen-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalPedidos">5</div>
+                    <div class="stat-label">Pedidos Pendientes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="productosCompletos">8</div>
+                    <div class="stat-label">Productos Completos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="productosFaltantes">3</div>
+                    <div class="stat-label">Productos Faltantes</div>
+                </div>
+            </div>
+
+            <div class="tablas-container">
+                <!-- Tabla de Pedidos Pendientes -->
+                <div class="tabla-section">
+                    <div class="tabla-titulo">
+                        <img style="width: 15px;" alt="" src="../../recursos/iconos/icono_ordenes.svg">
+                         Pedidos Pendientes
+                        <span class="contador-productos" id="contadorPedidos">5</span>
+                    </div>
+                    <div class="tabla-container">
+                        <table class="productos-table">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Fecha</th>
+                                    <th>Productos</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaPedidos">
+                        
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tabla de Estado del Inventario -->
+                <div class="tabla-section">
+                    <div class="tabla-titulo">
+                        <img style="width: 15px;" alt="" src="../../recursos/iconos/icono_productos.svg">
+                         Estado del Inventario
+                        <span class="contador-productos contador-warning" id="contadorInventario">11</span>
+                    </div>
+                    <div class="tabla-container">
+                        <table class="productos-table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Necesario</th>
+                                    <th>Disponible</th>
+                                    <th>Faltante</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaInventario">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+
+    
+    <!-- Script -->
+    
+    <script type="module" src="../../js/productos/alertaProductos.js"></script>
+    <script type="module" src="../../js/funciones/navegacion.js"></script>
+    <script type="module" src="../../js/ordenes/administrarPedidos.js"></script>
+
+     
+</body>
+</html>

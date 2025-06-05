@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <link rel="stylesheet" href="../../recursos/css/alertas.css">
+    <link rel="stylesheet" href="../../recursos/css/globales.css">
+    <link rel="stylesheet" href="../../recursos/css/agregarLista.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
+   
+</head>
+<body>
+    <div class="contenedor-todo">
+        <div class="fondo"></div>
+        <div class="navegacion">
+            <div class="boton-menu" id="resumenContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_resumen.svg">
+                <div class="texto-boton">Resumen</div>
+            </div>
+            <div class="boton-menu" id="clientesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_clientes.svg">
+                <div class="texto-boton">Clientes</div>
+            </div>
+            <div class="boton-menu activo" id="productosContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_productos.svg">
+                <div class="texto-boton">Productos</div>
+            </div>
+            <div class="boton-menu" id="ordenesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_ordenes.svg">
+                <div class="texto-boton">Pedidos</div>
+            </div>
+            <div class="boton-menu" id="provedoresContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_provedores.svg">
+                <div class="texto-boton">Proveedores</div>
+            </div>
+            <div class="boton-menu" id="rutasContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_rutas.svg">
+                <div class="texto-boton">Rutas</div>
+            </div>
+            <div class="boton-menu" id="reportesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_reportes.svg">
+                <div class="texto-boton">Reportes</div>
+            </div>
+            <div class="boton-menu" id="ajustesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_ajustes.svg">
+                <div class="texto-boton">Ajustes</div>
+            </div>
+        </div>
+
+       
+
+        <div class="formulario-container">
+            <div class="formulario-header">
+                <button class="boton-atras">
+                    <img class="icono-atras" alt="" src="../../recursos/iconos/icono_atras.svg">
+                </button>
+                <h1 class="titulo-formulario">Gestión de Precios de Proveedor</h1>
+                <p class="subtitulo-formulario">Selecciona productos y asigna sus precios de proveedor</p>
+            </div>
+
+            <div class="resumen-cambios" id="resumen-cambios">
+                <div class="resumen-titulo">
+                    <img style="width: 13px;" src="../../recursos/iconos/icono_ordenes.svg">
+                    Resumen de cambios</div>
+                <div class="resumen-texto" id="resumen-texto"></div>
+            </div>
+
+            <div class="tablas-container">
+                <!-- Tabla de productos disponibles -->
+                <div class="tabla-section">
+                    <h3 class="tabla-titulo">
+                        <img class="icono-btn" src="../../recursos/iconos/icono_bolsa.svg">
+                         Productos Disponibles 
+                        <span class="contador-productos" id="contador-disponibles">8</span>
+                    </h3>
+                    <div class="tabla-container">
+                        <table class="productos-table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio Venta</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productos-disponibles">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tabla de productos seleccionados -->
+                <div class="tabla-section">
+                    <h3 class="tabla-titulo">
+                        <img class="icono-btn" src="../../recursos/iconos/icono_productos.svg">
+                         Productos con Precio de Proveedor 
+                        <span class="contador-productos" id="contador-seleccionados">0</span>
+                    </h3>
+                    <div class="tabla-container">
+                        <table class="productos-table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio Proveedor</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productos-seleccionados">
+                                <tr class="mensaje-vacio">
+                                    <td colspan="3">
+                                        <div>No hay productos seleccionados</div>
+                                        <div style="font-size: 12px; margin-top: 4px;">Selecciona productos de la tabla de la izquierda</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="acciones-finales">
+                <button class="btn-guardar" id="btn-guardar" onclick="guardarCambios()" disabled>
+                    <span><img class="icono-btn" src="../../recursos/iconos/icono_guardar.svg"></span>
+                    <span style="margin-bottom: 4px;">Guardar Cambios</span>
+                </button>
+                <button class="btn-cancelar" onclick="cancelarCambios()">
+                    <span><img class="icono-btn" src="../../recursos/iconos/icono_eliminar.svg"></span>
+                    <span style="margin-bottom: 4px;">Cancelar</span>
+                </button>
+            </div>
+        </div>   
+    </div>
+
+    <!-- Script -->
+    <script type="module" src="../../js/proveedores/alertaProveedores.js"></script>
+    <script src="../../js/funciones/navegacion.js"></script>
+    <script type="module" src="../../js/proveedores/agregarLista.js"></script>
+   
+</body>
+</html>

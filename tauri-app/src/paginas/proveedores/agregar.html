@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, width=device-width">
+  <title>Agregar Producto</title>
+
+  <link rel="stylesheet" href="../../recursos/css/alertas.css">
+  <link rel="stylesheet" href="../../recursos/css/globales.css">
+  <link rel="stylesheet" href="../../recursos/css/agregar.css">
+  <link rel="stylesheet" href="../../recursos/css/agregarClientes.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
+</head>
+<body>
+  <div class="contenedor-todo">
+    <div class="fondo"></div>
+    <div class="navegacion">
+        <div class="boton-menu" id="resumenContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_resumen.svg">
+            <div class="texto-boton">Resumen</div>
+        </div>
+        <div class="boton-menu" id="clientesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_clientes.svg">
+            <div class="texto-boton">Clientes</div>
+        </div>
+        <div class="boton-menu activo" id="productosContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_productos.svg">
+            <div class="texto-boton">Productos</div>
+        </div>
+        <div class="boton-menu" id="ordenesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_ordenes.svg">
+            <div class="texto-boton">Pedidos</div>
+        </div>
+        <div class="boton-menu" id="provedoresContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_provedores.svg">
+            <div class="texto-boton">Proveedores</div>
+        </div>
+        <div class="boton-menu" id="rutasContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_rutas.svg">
+            <div class="texto-boton">Rutas</div>
+        </div>
+        <div class="boton-menu" id="reportesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_reportes.svg">
+            <div class="texto-boton">Reportes</div>
+        </div>
+        <div class="boton-menu" id="ajustesContainer">
+            <img class="icono" alt="" src="../../recursos/iconos/icono_ajustes.svg">
+            <div class="texto-boton">Ajustes</div>
+        </div>
+    </div>
+
+    <div class="contenedor-formulario" id="contenedor-formulario">
+        <div class="nombre-producto">
+            <button class="boton-atras">
+                <img class="icono-atras" alt="" src="../../recursos/iconos/icono_atras.svg">
+            </button>
+            Agregar Nuevo Proveedor
+        </div>
+        <form id="formulario-agregar">
+            <div class="conetenedor-actualizar">
+                <div class="contenedor-imagen" id="imagen-preview-container">
+                    <img id="preview-img" class="imagen" alt="Vista previa" src="../../recursos/iconos/icono_provedores.svg">
+                </div>
+                
+                <div class="contenedor-informacion">
+                    <div class="informacion-producto">
+                        <div class="titulos">Nombre</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <input name="nombre" type="text" id="nombre" class="informacin-del-producto" placeholder="Nombre del proveedor" />
+                        </div>
+                    </div>
+                    <div class="informacion-producto">
+                        <div class="titulos">Teléfono</div>
+                        <div class="informacin-del-producto-wrapper" style="display: flex; gap: 8px;">
+                            <select id="prefijo" class="informacin-del-producto" style="width: 80px;">
+                                <option value="+52">+52 🇲🇽</option>
+                                <option value="+1">+1 🇺🇸</option>
+                                <option value="+54">+54 🇦🇷</option>
+                                <option value="+57">+57 🇨🇴</option>
+                            </select>
+                            <input name="telefono" type="tel" id="telefono" class="informacin-del-producto" placeholder="555 123 4567" maxlength="15" />
+                        </div>
+                    </div>
+                    <div class="informacion-producto">
+                        <div class="titulos">Correo Electronico</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <input name="correo" type="email" id="correo" class="informacin-del-producto" placeholder="ejemplo@gmail.com" />
+                        </div>
+                    </div>
+                     <div class="informacion-producto">
+                        <div class="titulos">Dirección Completa</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <input name="direccion_completa" type="text" id="direccion_completa" class="informacin-del-producto" placeholder="Calle Nombre #123, Ciudad" />
+                        </div>
+                    </div>
+                    
+                    <div class="informacion-producto">
+                        <div class="titulos">Código Postal</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <input name="codigo_postal" type="text" id="codigo_postal" class="informacin-del-producto" placeholder="12345" maxlength="5" pattern="[0-9]{5}" />
+                        </div>
+                    </div>
+                    
+                    <div class="informacion-producto">
+                        <div class="titulos">Estado</div>
+                        <div class="informacin-del-producto-wrapper">
+                            <select name="estado" id="estado" class="informacin-del-producto">
+                                <option value="">Selecciona un estado</option>
+                                <option value="Aguascalientes">Aguascalientes</option>
+                                <option value="Baja California">Baja California</option>
+                                <option value="Baja California Sur">Baja California Sur</option>
+                                <option value="Campeche">Campeche</option>
+                                <option value="Chiapas">Chiapas</option>
+                                <option value="Chihuahua">Chihuahua</option>
+                                <option value="Ciudad de México">Ciudad de México</option>
+                                <option value="Coahuila">Coahuila</option>
+                                <option value="Colima">Colima</option>
+                                <option value="Durango">Durango</option>
+                                <option value="Estado de México">Estado de México</option>
+                                <option value="Guanajuato">Guanajuato</option>
+                                <option value="Guerrero">Guerrero</option>
+                                <option value="Hidalgo">Hidalgo</option>
+                                <option value="Jalisco">Jalisco</option>
+                                <option value="Michoacán">Michoacán</option>
+                                <option value="Morelos">Morelos</option>
+                                <option value="Nayarit">Nayarit</option>
+                                <option value="Nuevo León">Nuevo León</option>
+                                <option value="Oaxaca">Oaxaca</option>
+                                <option value="Puebla">Puebla</option>
+                                <option value="Querétaro">Querétaro</option>
+                                <option value="Quintana Roo">Quintana Roo</option>
+                                <option value="San Luis Potosí">San Luis Potosí</option>
+                                <option value="Sinaloa">Sinaloa</option>
+                                <option value="Sonora">Sonora</option>
+                                <option value="Tabasco">Tabasco</option>
+                                <option value="Tamaulipas">Tamaulipas</option>
+                                <option value="Tlaxcala">Tlaxcala</option>
+                                <option value="Veracruz">Veracruz</option>
+                                <option value="Yucatán">Yucatán</option>
+                                <option value="Zacatecas">Zacatecas</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="guardar-producto">
+                <button type="submit" class="boton">
+                    <img class="icono" alt="" src="../../recursos/iconos/icono_guardar.svg">
+                    <div class="texto-boton">Guardar Proveedor</div>
+                </button>
+                <button type="button" id="btn-cancelar" class="boton-eliminar" >
+                    <img class="icono" alt="" src="../../recursos/iconos/icono_eliminar.svg">
+                    <div class="texto-boton">Cancelar</div>
+                </button>
+            </div>
+        </form>
+    </div>
+  </div>
+
+  <!-- Script -->
+    <script src="../../js/funciones/navegacion.js"></script>
+    <script type="module" src="../../js/proveedores/alertaProveedores.js"></script>
+    <script type="module" src="../../js/proveedores/agregarProveedores.js"></script>
+</body>
+</html>

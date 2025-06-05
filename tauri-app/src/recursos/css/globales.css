@@ -1,0 +1,176 @@
+body {
+    margin: 0;
+    line-height: normal;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Variables CSS para paleta de colores y valores recurrentes */
+:root {
+    --color-background: #fefff5;
+    --color-card-bg: #f6f7ed;
+    --color-active: rgba(189, 242, 171, 0.8);
+    --color-hover: rgba(189, 242, 171, 0.5);
+    --color-delate: #F2BCAB;
+    --color-text: #000;
+    --color-text-secondary: #888381;
+    --color-text-hover: #4a4a4a;
+    --color-success: #83B759;
+    --color-danger: #e74c3c;
+    --border-radius-card: 20px;
+    --border-radius-button: 30px;
+    --shadow-light: 0 2px 5px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow-strong: 0 10px 20px rgba(0, 0, 0, 0.1);
+    --sidebar-width: 16vw;
+    --sidebar-max-width: 224px;
+    --sidebar-min-width: 180px;
+    --cart-width: 350px;
+}
+
+/* Contenedor principal */
+.contenedor-todo {
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    min-height: 100vh;
+    overflow: hidden;
+    text-align: left;
+    font-size: 16px;
+    color: var(--color-text);
+}
+
+/* Fondo */
+.fondo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--color-background);
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+}
+
+/* Navegación lateral */
+.navegacion {
+    position: fixed;
+    top: 79px;
+    left: 2vw;
+    border-radius: var(--border-radius-card);
+    background-color: var(--color-card-bg);
+    width: var(--sidebar-width);
+    max-width: var(--sidebar-max-width);
+    min-width: var(--sidebar-min-width);
+    height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 25px;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+/* Botones del menú */
+.boton-menu {
+    align-self: stretch;
+    border-radius: var(--border-radius-button);
+    width: 100%;
+    height: 55px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px 15px 15px 20px;
+    box-sizing: border-box;
+    gap: 20px;
+    transition: all 0.2s ease-in-out;
+}
+
+.boton-menu:hover {
+    background-color: var(--color-hover);
+    cursor: pointer;
+    transform: translateX(5px);
+}
+
+/* Estado activo para el menú */
+.boton-menu.activo {
+    background-color: var(--color-active);
+    box-shadow: var(--shadow-medium);
+    transform: translateX(5px);
+}
+
+.icono {
+    width: 25px;
+    position: relative;
+    max-height: 100%;
+    transition: transform 0.3s ease;
+}
+
+/* Efecto sutil en los iconos al hover */
+.boton-menu:hover .icono,
+.boton-menu.activo .icono {
+    transform: scale(1.15);
+}
+
+.texto-boton {
+    position: relative;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Efecto para el texto del botón */
+.boton-menu:hover .texto-boton,
+.boton-menu.activo .texto-boton {
+    font-weight: 500;
+}
+
+.boton, .boton-eliminar, .boton-secundario, .boton-cancelar {
+    all: unset;
+    flex: 0.5;
+    min-width: 150px;
+    max-width: 250px;
+    border-radius: var(--border-radius-button);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px 15px 15px 20px;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+.boton-atras {
+    all: unset;
+    width: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.icono-atras {
+    width: 30px;
+    position: relative;
+    max-height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.boton:hover, .boton-atras:hover, .boton-secundario:hover {
+    background-color: var(--color-hover);
+    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.boton-eliminar:hover , .boton-cancelar:hover{
+    background-color: var(--color-delate);
+    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}

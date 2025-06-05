@@ -1,0 +1,191 @@
+.contenedor-formulario {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 30px;
+    text-align: left;
+    font-size: 16px;
+    color: #000;
+    padding: 0 30px 30px 30px;
+    top:80px;
+}
+
+.nombre-producto {
+    position: relative;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+/* Diseño principal en fila */
+.conetenedor-actualizar {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-bottom: 50px;
+    padding: 10px 0px;
+}
+
+.contenedor-imagen {
+    width: 330px;
+    border-radius: 20px;
+    background-color: #f6f7ed;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    text-align: center;
+}
+
+.imagen {
+    width: 90%;
+    height: 90%;
+    position: relative;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: var(--border-radius-button);
+}
+
+/* Nuevo contenedor para los campos de información */
+.contenedor-informacion {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 70%;
+    gap: 20px;
+}
+
+.informacion-producto {
+    width: calc(50% - 10px);
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.titulos {
+    position: relative;
+    font-weight: 500;
+}
+
+.informacin-del-producto-wrapper {
+    width: 100%;
+    border-radius: 20px;
+    background-color: #f6f7ed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.informacin-del-producto {
+    background-color: var(--color-card-bg);
+    width: 100%;
+    position: relative;
+    padding: 8px;
+    box-sizing: border-box;
+    font-family: Inter, sans-serif;
+}
+
+input.informacin-del-producto,
+select.informacin-del-producto,
+textarea.informacin-del-producto {
+    border: none;
+    width: 100%;
+    font-size: 14px;
+    height: 38px;
+    outline: none;
+    color: var(--color-text-secondary);
+}
+
+select.informacin-del-producto{
+    appearance: none;/* Quita el estilo del navegador */
+    cursor: pointer;        
+}
+
+textarea.informacin-del-producto {
+    height: 80px;
+    resize: vertical;
+}
+
+.actualizar {
+    width: 100%;
+    border-radius: 20px;
+    background-color: var(--color-card-bg);
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 50px;
+}
+
+.vector-icon {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.titulo2 {
+    align-self: stretch;
+    position: relative;
+    color: var(--color-text-secondary);
+}
+
+.guardar-producto {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 19px;
+}
+
+/* Estilos para el formulario */
+#formulario-edicion {
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .conetenedor-actualizar {
+        flex-direction: column;
+    }
+    
+    .contenedor-informacion {
+        width: 100%;
+        margin-top: 20px;
+    }
+    
+    .contenedor-imagen {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .informacion-producto {
+        width: 100%;
+  }
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <link rel="stylesheet" href="../../recursos/css/alertas.css">
+    <link rel="stylesheet" href="../../recursos/css/globales.css">
+    <link rel="stylesheet" href="../../recursos/css/clientes-proveedores.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
+   
+</head>
+<body>
+    <div class="contenedor-todo">
+        <div class="fondo"></div>
+        <div class="navegacion">
+            <div class="boton-menu" id="resumenContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_resumen.svg">
+                <div class="texto-boton">Resumen</div>
+            </div>
+            <div class="boton-menu" id="clientesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_clientes.svg">
+                <div class="texto-boton">Clientes</div>
+            </div>
+            <div class="boton-menu activo" id="productosContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_productos.svg">
+                <div class="texto-boton">Productos</div>
+            </div>
+            <div class="boton-menu" id="ordenesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_ordenes.svg">
+                <div class="texto-boton">Pedidos</div>
+            </div>
+            <div class="boton-menu" id="provedoresContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_provedores.svg">
+                <div class="texto-boton">Proveedores</div>
+            </div>
+            <div class="boton-menu" id="rutasContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_rutas.svg">
+                <div class="texto-boton">Rutas</div>
+            </div>
+            <div class="boton-menu" id="reportesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_reportes.svg">
+                <div class="texto-boton">Reportes</div>
+            </div>
+            <div class="boton-menu" id="ajustesContainer">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_ajustes.svg">
+                <div class="texto-boton">Ajustes</div>
+            </div>
+        </div>
+
+        <div class="contenedor-buscador">
+            <div class="buscador">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_buscar.svg">
+                <input type="text" id="input-busqueda" placeholder="Buscar" class="texto-buscar">
+            </div>
+            <div class="boton" onclick="window.location.href='./agregar.html'">
+                <img class="icono" alt="" src="../../recursos/iconos/icono_agregar.svg">
+                <div class="texto-boton">Añadir Cliente</div>
+            </div>
+            <div class="select-products">
+                <img class="icono" alt="" src="">
+                <!--<div class="texto-boton">Asignar productos</div>-->
+            </div>
+            <div class="select-products">
+                <img class="icono" alt="" src="">
+                <!--<div class="texto-boton">Asignar productos</div>-->
+            </div>
+        </div>
+
+        <div id="loaderOverlay" class="loader-overlay" style="display: none;">
+            <div class="loader"></div>
+        </div>
+        
+        <div class="contenedor-tarjetas" id="contenedor-tarjetas">
+        
+        </div> 
+    </div>
+
+    <button id="botonSubir" class="botonSubir"> 
+        <img class="icono" alt="" src="../../recursos/iconos/icono_arriba.svg">
+    </button>
+
+    <!-- Script -->
+    <script type="module" src="../../js/clientes/alertaClientes.js"></script>
+    <script src="../../js/funciones/navegacion.js"></script>
+    <script type="module" src="../../js/clientes/cargarClientes.js"></script>
+</body>
+</html>
